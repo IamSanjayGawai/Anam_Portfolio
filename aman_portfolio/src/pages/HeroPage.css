@@ -1,0 +1,181 @@
+ :root {
+      --orange1: #ff7a18;   /* Main orange gradient start */
+      --orange2: #ffb347;   /* Main orange gradient end */
+      --bg-dark: #17181c;   /* Background color */
+      --white: #fafaff;     /* White text */
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-dark);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    /* ----------------------------- */
+    /* Loader screen with progress  */
+    /* ----------------------------- */
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(ellipse at 60% 40%, #22242d 60%, #17181c 100%);
+      z-index: 9999;
+      transition: opacity 0.6s;
+    }
+    #loader.hide {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .loader-label {
+      font-size: 1.2rem;
+      color: var(--orange1);
+      margin-bottom: 20px;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+    .loader-bar {
+      width: 300px;
+      height: 10px;
+      background: #23242a;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    .loader-progress {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(to right, var(--orange1), var(--orange2));
+      transition: width 0.3s ease;
+    }
+
+    /* ----------------------------- */
+    /* Hero section layout & canvas */
+    /* ----------------------------- */
+    .hero {
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
+    }
+
+    canvas {
+      /* Three.js canvas fills background */
+      position: absolute;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
+    .hero-content {
+      /* Text content over canvas */
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .hero-title {
+      /* Main title text */
+      font-size: clamp(2.5rem, 7vw, 6rem);
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--orange1), var(--orange2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: white;
+
+      animation: gradientShift 4s linear infinite;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .hero-subtitle {
+      /* Tagline under the title */
+      font-size: 1.5rem;
+      opacity: 0.9;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-description {
+      /* Description paragraph */
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      opacity: 0.8;
+    }
+
+    .cta-buttons {
+      /* Container for CTA buttons */
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cta-btn {
+      /* CTA buttons (Explore Work, Contact Me) */
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 30px;
+      background: linear-gradient(to right, var(--orange2), var(--orange1));
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 0 10px var(--orange1);
+      transition: transform 0.2s;
+    }
+
+    .cta-btn:hover {
+      transform: scale(1.05);
+    }
+
+    /* To REMOVE Explore Work / Contact Me buttons, DELETE the <div class="cta-buttons">...</div> in the HTML section below */
+
+    /* ----------------------------- */
+    /* Stats Counter Section (right)*/
+    /* ----------------------------- */
+    .stats {
+      position: absolute;
+      bottom: 40px;
+      right: 40px;
+      text-align: right;
+    }
+
+    .stat-item {
+      margin-bottom: 1rem;
+    }
+
+    .stat-number {
+      /* Number (e.g. 120 Projects) */
+      font-size: 2rem;
+      color: var(--orange1);
+      font-weight: bold;
+    }
+
+    .stat-label {
+      /* Label under stat */
+      font-size: 0.85rem;
+      opacity: 0.6;
+    }
+
+    /* To REMOVE stats (Projects, Clients, Years), DELETE the <div class="stats">...</div> in the HTML */
+
+    @media (max-width: 768px) {
+      .stats { display: none; }
+      .hero-content { padding: 0 15px; }
+    }
