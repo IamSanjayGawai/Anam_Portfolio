@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 
 
 
@@ -33,7 +33,7 @@ const navbar = () => {
           </svg>
           Resume / CV
         </a>
-        <Link to={"/admin"}>Admin</Link>
+        {/* <Link to={"/admin"}>Admin</Link> */}
         <a
           href="mailto:aman@email.com"
           className="bg-gradient-to-r from-orange-500 via-pink-500 to-orange-400 px-6 py-2 rounded-full text-base font-semibold text-white shadow-lg hover:scale-105 transition focus:ring-2 focus:ring-pink-400 glow-text"
