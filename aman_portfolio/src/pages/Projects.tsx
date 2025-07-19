@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FaGlobe, FaGithub, FaArrowLeft, FaXmark } from 'react-icons/fa6';
-import { featuredProjects, exploreProjects } from '../data/data';
+import { exploreProjects } from '../data/data';
 import axios from 'axios';
 interface Link {
   type: 'github' | 'live';

@@ -1,12 +1,9 @@
-import { useRef, type ChangeEvent, useState } from "react";
+import { useRef, type ChangeEvent } from "react";
 import axios from "axios";
 import {
-  Plus,
-  Edit,
   Trash2,
   Save,
   X,
-  Eye,
   Upload,
   FileImage,
 } from "lucide-react";

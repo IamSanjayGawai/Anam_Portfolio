@@ -27,18 +27,6 @@ type Project = {
   details: string;
 };
 
-type ProjectFormData = {
-  type: string;
-  title: string;
-  image: File | null;
-  imagePreview: string | null;
-  desc: string;
-  tech: string;
-  techClasses: string;
-  live: string;
-  github: string;
-  details: string;
-};
 
 interface ExploreProject {
   title: string;
@@ -89,7 +77,7 @@ const Portfolio = () => {
     setTimeout(() => setModalProject(null), 300);
   };
 
-  const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project, index }) => (
+  const ProjectCard: React.FC<{ project: Project; index: number }> = ({ project }) => (
     <div className="bg-black rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full  group flex flex-col transform hover:-translate-y-1">
       <div className="overflow-hidden rounded-t-xl">
         <img 
@@ -202,8 +190,8 @@ const Portfolio = () => {
   const Modal: React.FC = () => {
     if (!modalProject) return null;
 
-    const isProjectType = 'fullDesc' in modalProject;
-    const description = isProjectType ? modalProject.fullDesc : (modalProject.details || modalProject.desc);
+
+
     
     return (
       <div 

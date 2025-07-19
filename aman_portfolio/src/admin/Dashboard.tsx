@@ -1,13 +1,9 @@
-import { useState, useEffect, useRef, type ChangeEvent } from "react";
+import { useState, useEffect  } from "react";
 import {
   Plus,
   Edit,
   Trash2,
-  Save,
-  X,
   Eye,
-  Upload,
-  FileImage,
 } from "lucide-react";
 import axios from "axios";
 import ProfileModal from "./ProfileModal";

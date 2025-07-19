@@ -1,4 +1,4 @@
-import { Upload, Trash2, Save, X, FileImage } from "lucide-react";
+import { Save, X, FileImage } from "lucide-react";
 import { useState, useRef } from "react";
 import axios from "axios";
 

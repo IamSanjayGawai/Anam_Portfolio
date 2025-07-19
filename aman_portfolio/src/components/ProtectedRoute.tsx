@@ -1,5 +1,3 @@
-
-
 import { useAuth } from '../contexts/AuthContext';
 import AdminLogin from './AdminLogin';
 

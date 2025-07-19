@@ -9,7 +9,7 @@ const HomePage = () => {
   const [activeSection, setActiveSection] = useState(0);
   const [exploreOpen, setExploreOpen] = useState(false);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const sectionIds = ["home", "about", "skills", "portfolio", "contact"];
+
 
 
   // Handle scroll to update active navigation

@@ -1,5 +1,5 @@
 // components/AdminLogin.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { Eye, EyeOff, Lock, User, Shield } from 'lucide-react';
 
