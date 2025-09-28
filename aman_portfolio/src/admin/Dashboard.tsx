@@ -413,6 +413,9 @@ const AddProject = () => {
   const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [showSkills, setShowSkills] = useState(false);
   const [skills, setSkills] = useState<Skill[]>([]);
+  // At the top of your AddProject component, with other useState hooks
+const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
+
 
   const [formData, setFormData] = useState<ProjectFormData>({
     type: "recent",
@@ -508,6 +511,46 @@ const AddProject = () => {
     handleGetProject();
     fetchSkills();
   }, []);
+
+  // Inside AddProject component
+
+// Function to handle deleting a skill
+const handleDeleteSkill = async (id: string) => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this skill category?"
+  );
+  if (!confirmDelete) return;
+
+  try {
+    await axios.delete(`${backendUrl}/api/skills/${id}`);
+    setSkills((prev) => prev.filter((s) => s._id !== id));
+    alert("Skill deleted successfully!");
+  } catch (err) {
+    console.error("Failed to delete skill:", err);
+    alert("Failed to delete skill. Please try again.");
+  }
+};
+
+const handleEditSkill = (skill: Skill) => {
+  setShowSkills(true); // open skills modal
+  setEditingSkill(skill); // now this exists
+};
+
+
+// Function to handle updating a skill
+const handleUpdateSkill = async (id: string, updatedData: Partial<Skill>) => {
+  try {
+    const response = await axios.put(`${backendUrl}/api/skills/${id}`, updatedData);
+    setSkills((prev) =>
+      prev.map((skill) => (skill._id === id ? response.data : skill))
+    );
+    alert("Skill updated successfully!");
+  } catch (err) {
+    console.error("Failed to update skill:", err);
+    alert("Failed to update skill. Please try again.");
+  }
+};
+
 
   return (
     <>
@@ -727,16 +770,36 @@ const AddProject = () => {
               <p className="text-gray-400">No skills added yet.</p>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                {skills.map((skill) => (
-                  <div key={skill._id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
-                    <h3 className="text-white font-bold mb-2">{skill.icon} {skill.title}</h3>
-                    <ul className="text-gray-300 text-sm">
-                      {skill.items.map((item:any, idx:any) => (
-                        <li key={idx}>{item.name} – {item.level}%</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+{skills.map((skill) => (
+  <div
+    key={skill._id}
+    className="p-4 bg-gray-800 rounded-lg border border-gray-700 relative"
+  >
+    <h3 className="text-white font-bold mb-2">{skill.icon} {skill.title}</h3>
+    <ul className="text-gray-300 text-sm">
+      {skill.items.map((item:any, idx:any) => (
+        <li key={idx}>{item.name} – {item.level}%</li>
+      ))}
+    </ul>
+    <div className="absolute top-2 right-2 flex gap-2">
+      <button
+        onClick={() => handleEditSkill(skill)}
+        className="text-blue-400 hover:text-blue-300"
+        title="Edit Skill"
+      >
+        <Edit size={16} />
+      </button>
+      <button
+        onClick={() => handleDeleteSkill(skill._id!)}
+        className="text-red-400 hover:text-red-300"
+        title="Delete Skill"
+      >
+        <Trash2 size={16} />
+      </button>
+    </div>
+  </div>
+))}
+
               </div>
             )}
           </section>
