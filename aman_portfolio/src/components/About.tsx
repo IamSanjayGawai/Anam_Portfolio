@@ -27,13 +27,13 @@ const About: React.FC<AboutProps> = ({ sectionRefs }) => {
     handleGetAbout()
   }, [])
 
-  const normalizedImagePath = aboutDetail?.image?.replace(/\\/g, "/");
+  // const normalizedImagePath = aboutDetail?.image?.replace(/\\/g, "/");
 
-  const imageUrl = normalizedImagePath?.startsWith("http")
-    ? normalizedImagePath
-    : normalizedImagePath?.startsWith("uploads/")
-      ? `${backendUrl}/${normalizedImagePath}`
-      : `${backendUrl}/uploads/${normalizedImagePath}`;
+  // const imageUrl = normalizedImagePath?.startsWith("http")
+  //   ? normalizedImagePath
+  //   : normalizedImagePath?.startsWith("uploads/")
+  //     ? `${backendUrl}/${normalizedImagePath}`
+  //     : `${backendUrl}/uploads/${normalizedImagePath}`;
 
   return (
     <>

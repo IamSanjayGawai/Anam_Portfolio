@@ -414,7 +414,7 @@ const AddProject = () => {
   const [showSkills, setShowSkills] = useState(false);
   const [skills, setSkills] = useState<Skill[]>([]);
   // At the top of your AddProject component, with other useState hooks
-const [editingSkill, setEditingSkill] = useState<Skill | null>(null);
+const [_, setEditingSkill] = useState<Skill | null>(null);
 
 
   const [formData, setFormData] = useState<ProjectFormData>({
@@ -537,19 +537,7 @@ const handleEditSkill = (skill: Skill) => {
 };
 
 
-// Function to handle updating a skill
-const handleUpdateSkill = async (id: string, updatedData: Partial<Skill>) => {
-  try {
-    const response = await axios.put(`${backendUrl}/api/skills/${id}`, updatedData);
-    setSkills((prev) =>
-      prev.map((skill) => (skill._id === id ? response.data : skill))
-    );
-    alert("Skill updated successfully!");
-  } catch (err) {
-    console.error("Failed to update skill:", err);
-    alert("Failed to update skill. Please try again.");
-  }
-};
+
 
 
   return (
