@@ -14,6 +14,10 @@ type AuthorData = {
   role: string;
   image: File | null;
   imagePreview: string | null;
+  github: string;
+  instagram: string;
+  linkedin: string;
+  gmail: string;
 };
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile }) => {
@@ -24,6 +28,10 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
     role: "",
     image: null,
     imagePreview: null,
+    github: "",
+    instagram: "",
+    linkedin: "",
+    gmail: ""
   });
 
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -42,6 +50,10 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
           about: data.about,
           headline: data.headline,
           role: data.role,
+          github: data.github,
+    instagram: data.instagram,
+    linkedin: data.linkedin,
+    gmail: data.gmail,
           imagePreview: data.image ? `${backendUrl}/${data.image}` : null,
         }));
       }
@@ -100,6 +112,10 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
     form.append("about", authorData.about);
     form.append("headline", authorData.headline);
     form.append("role", authorData.role);
+    form.append("github", authorData.github);
+    form.append("instagram", authorData.instagram);
+    form.append("linkedin", authorData.linkedin);
+    form.append("gmail", authorData.gmail);
     if (authorData.image) {
       form.append("image", authorData.image);
     }
@@ -199,6 +215,48 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
                 className="w-full px-3 py-2 border border-gray-600 bg-gray-800 text-white rounded-md"
               />
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-200 mb-1">Linkedin Url</label>
+              <input
+                type="text"
+                name="linkedin"
+                value={authorData.linkedin}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-800 text-white rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-200 mb-1">Github Url</label>
+              <input
+                type="text"
+                name="github"
+                value={authorData.github}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-800 text-white rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-200 mb-1">Instagram Url</label>
+              <input
+                type="text"
+                name="instagram"
+                value={authorData.instagram}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-800 text-white rounded-md"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-200 mb-1">Gmail Url</label>
+              <input
+                type="text"
+                name="gmail"
+                value={authorData.gmail}
+                onChange={handleInputChange}
+                className="w-full px-3 py-2 border border-gray-600 bg-gray-800 text-white rounded-md"
+              />
+            </div>
+
 
             <div>
               <label className="block text-sm font-medium text-gray-200 mb-1">About</label>

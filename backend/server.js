@@ -58,6 +58,7 @@ import contactRoutes from './routes/contactRoutes.js';
 import fileRoutes from "./routes/fileRoutes.js";
 import connectDB from './db/db.js'; // adjust path as needed
 import fs from "fs";
+import skillRoutes from "./routes/skillRoutes.js";
 
 dotenv.config();
 
@@ -65,7 +66,7 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 // Connect to MongoDB
-connectDB();
+
 
 // --- CORS Setup ---
 const allowedOrigins = [
@@ -107,15 +108,20 @@ app.use((req, res, next) => {
   }
 });
 
+connectDB();
+
 // Routes
 app.use("/api/featured", featuredRoutes);
 app.use("/api/explore", exploreRoutes);
 app.use("/api/authors", aboutAuthorRoutes);
 app.use('/api/contact', contactRoutes);
 app.use("/api/files", fileRoutes);
+// Skills API
+app.use("/api/skills", skillRoutes);
 
 // Start server
 app.listen(PORT, () => {
+
   console.log(`Server running on http://localhost:${PORT}`);
   console.log("Allowed CORS origins:", allowedOrigins.join(", "));
 });

@@ -98,29 +98,6 @@ const About: React.FC<AboutProps> = ({ sectionRefs }) => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section
-        id="about"
-        ref={el => { sectionRefs.current[1] = el as HTMLDivElement | null; }}
-        className="section flex flex-col lg:flex-row items-center justify-center gap-10 px-2 py-6"
-      >
-        <img
-          src={imageUrl}
-          alt="Author"
-          className="rounded-2xl shadow-xl w-44 h-44 object-cover border-4 border-orange-500/50 glass"
-        />
-
-        <div className="max-w-xl flex flex-col gap-4">
-          <h2 className="text-3xl md:text-4xl font-extrabold glow-text mb-2">About Me</h2>
-          <p className="text-base md:text-lg text-white/90 font-medium">
-            <span className="font-bold text-orange-400">Hi, I'm {aboutDetail?.name}.</span>
-            {aboutDetail?.about}
-          </p>
-          <div className="glass mt-2 px-5 py-2 rounded-xl text-orange-400 font-semibold text-base w-fit shadow-md">
-            My mission: <span className="text-white">{aboutDetail?.mission}</span>
-          </div>
-        </div>
-      </section>
     </>
   )
 }

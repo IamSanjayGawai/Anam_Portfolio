@@ -13,21 +13,31 @@ const HomePage = () => {
 
 
   // Handle scroll to update active navigation
-useEffect(() => {
-  const handleScroll = () => {
-    let currentIdx = 0;
-    sectionRefs.current.forEach((section, idx) => {
-      if (section && window.scrollY + 200 >= section.offsetTop) {
-        currentIdx = idx;
-      }
-    });
-    setActiveSection(currentIdx);
-  };
-
-  window.addEventListener("scroll", handleScroll);
-  return () => window.removeEventListener("scroll", handleScroll);
-}, []);
-
+  useEffect(() => {
+    const handleScroll = () => {
+      let currentIdx = 0;
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      
+      sectionRefs.current.forEach((section, idx) => {
+        if (section) {
+          const { top, bottom } = section.getBoundingClientRect();
+          const sectionTop = top + window.scrollY;
+          const sectionBottom = bottom + window.scrollY;
+          
+          if (scrollPosition >= sectionTop && scrollPosition <= sectionBottom) {
+            currentIdx = idx;
+          }
+        }
+      });
+      setActiveSection(currentIdx);
+      console.log('Active section:', currentIdx, 'Scroll position:', scrollPosition);
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // initialize active section on load
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  
 
   // Handle navigation click
   const handleNavClick = (idx: number) => {
@@ -167,11 +177,12 @@ useEffect(() => {
         aria-current={activeSection === idx ? "page" : "false"}
         aria-label={item.label}
         onClick={() => handleNavClick(idx)}
-        className={`w-12 h-12 rounded-full flex justify-center items-center text-xl transition focus:ring-2 focus:ring-orange-400 ${
-          activeSection === idx
-            ? "bg-orange-500 shadow-md text-white ring-2 ring-orange-400 scale-110"
+        className={`w-12 h-12 rounded-full flex justify-center items-center text-xl transition-all duration-300 focus:ring-2 focus:ring-orange-400
+          ${activeSection === idx
+            ? "bg-orange-500 shadow-lg text-white scale-110 ring-2 ring-orange-400"
             : "text-gray-400 hover:text-white hover:bg-slate-800/80"
-        }`}
+          }`}
+        
       >
         <svg
           className="w-6 h-6"
@@ -205,11 +216,28 @@ useEffect(() => {
       {/* Main Content */}
       <main className="relative pt-32 lg:pt-40 max-w-[900px] mx-auto space-y-24">
         {/* Home Section */}
-     <About sectionRefs={sectionRefs} />
+        <About sectionRefs={sectionRefs} />
 
+        {/* About Section */}
+        <section
+          id="about"
+          ref={el => { sectionRefs.current[1] = el as HTMLDivElement | null; }}
+          className="section flex flex-col lg:flex-row items-center justify-center gap-10 px-2 py-6"
+        >
+          <div className="max-w-xl flex flex-col gap-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold glow-text mb-2">About Me</h2>
+            <p className="text-base md:text-lg text-white/90 font-medium">
+              <span className="font-bold text-orange-400">Hi, I'm Aman.</span>
+              I'm a passionate developer who loves creating amazing web experiences. 
+              With expertise in modern web technologies, I build solutions that are both 
+              beautiful and functional. I enjoy turning complex problems into simple, 
+              elegant designs.
+            </p>
+          </div>
+        </section>
 
-{/* Skills Section */}
-<Skills sectionRefs={sectionRefs} />
+        {/* Skills Section */}
+        <Skills sectionRefs={sectionRefs} />
 
         {/* Portfolio Section */}
         <section

@@ -364,6 +364,7 @@ import ProfileModal from "./ProfileModal";
 import AdminHeader from "../components/AdminHeader";
 import ProjectModal from "./ProjectModal";
 import ResumeModal from "./ResumeModal";
+import AdminSkills from "./AdminSkills";
 
 type Project = {
   _id: string;
@@ -392,12 +393,26 @@ type ProjectFormData = {
   details: string;
 };
 
+interface SkillItem {
+  name: string;
+  level: number;
+}
+
+interface Skill {
+  _id?: string;
+  title: string;
+  icon: string;
+  items: SkillItem[];
+}
+
 const AddProject = () => {
   const [projects, setProjects] = useState<Project[]>([]);
   const [showForm, setShowForm] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
   const [showResume, setShowResume] = useState(false);
   const [editingProject, setEditingProject] = useState<Project | null>(null);
+  const [showSkills, setShowSkills] = useState(false);
+  const [skills, setSkills] = useState<Skill[]>([]);
 
   const [formData, setFormData] = useState<ProjectFormData>({
     type: "recent",
@@ -432,10 +447,6 @@ const AddProject = () => {
       setProjects([]);
     }
   };
-
-  useEffect(() => {
-    handleGetProject();
-  }, []);
 
   const handleEdit = (project: Project) => {
     setEditingProject(project);
@@ -482,6 +493,22 @@ const AddProject = () => {
     return colors[type] || "bg-gray-100 text-gray-800";
   };
 
+  // Fetch Skills
+  const fetchSkills = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/skills`);
+      setSkills(Array.isArray(response.data) ? response.data : response.data.skills || []);
+    } catch (err) {
+      console.error("Error fetching skills:", err);
+      setSkills([]);
+    }
+  };
+
+  useEffect(() => {
+    handleGetProject();
+    fetchSkills();
+  }, []);
+
   return (
     <>
       <AdminHeader />
@@ -497,6 +524,12 @@ const AddProject = () => {
                 className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
               >
                 Update Resume
+              </button>
+              <button
+                onClick={() => setShowSkills(true)}
+                className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg flex items-center gap-2 transition-colors"
+              >
+                Add Skills
               </button>
               <button
                 onClick={() => setShowProfile(true)}
@@ -527,6 +560,9 @@ const AddProject = () => {
             setShowProfile={setShowProfile}
           />
           <ResumeModal showResume={showResume} setShowResume={setShowResume} />
+
+          <AdminSkills showSkills={showSkills} setShowSkills={setShowSkills} />
+
 
           {/* Projects Table */}
           <div className="bg-gray-100 rounded-lg shadow-sm overflow-hidden">
@@ -683,9 +719,35 @@ const AddProject = () => {
               </div>
             )}
           </div>
-        </div>
+
+          {/* Skills Section */}
+      <section className="bg-gray-900 p-6 rounded-lg mt-10">
+            <h2 className="text-2xl font-bold text-white mb-4">Skills ({skills.length})</h2>
+            {skills.length === 0 ? (
+              <p className="text-gray-400">No skills added yet.</p>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                {skills.map((skill) => (
+                  <div key={skill._id} className="p-4 bg-gray-800 rounded-lg border border-gray-700">
+                    <h3 className="text-white font-bold mb-2">{skill.icon} {skill.title}</h3>
+                    <ul className="text-gray-300 text-sm">
+                      {skill.items.map((item:any, idx:any) => (
+                        <li key={idx}>{item.name} – {item.level}%</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            )}
+          </section>
+   
+       
+
+           </div>
+
+             
       </div>
-    </>
+      </>
   );
 };
 

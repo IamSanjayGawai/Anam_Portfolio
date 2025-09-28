@@ -6,6 +6,10 @@ const AboutAuthorSchema = new mongoose.Schema({
       about: String,
       headline:String,
       role:String,
+      github: String,
+      instagram: String,
+      linkedin: String,
+      gmail: String,
       mission:String
 })
 

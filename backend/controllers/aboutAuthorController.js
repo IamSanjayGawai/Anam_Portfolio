@@ -80,27 +80,41 @@ import { AboutAuthor } from "../model/AboutAuthor.js";
 // CREATE or UPDATE (only one author allowed)
 export const createOrUpdateAuthor = async (req, res) => {
   try {
-    const { name, about, headline, role } = req.body;
+    const { name, about, headline, role, linkedin, github, gmail, instagram } = req.body;
+
+    console.log("Payload received:", req.body);
 
     let existing = await AboutAuthor.findOne();
 
     if (existing) {
+      // Update all fields
       existing.name = name;
       existing.about = about;
       existing.headline = headline;
       existing.role = role;
+      existing.linkedin = linkedin;
+      existing.github = github;
+      existing.gmail = gmail;
+      existing.instagram = instagram;
+
       if (req.file) {
-        existing.image = req.file.path; // or `req.file.filename` if you prefer
+        existing.image = req.file.path; // or `req.file.filename`
       }
+
       await existing.save();
       return res.status(200).json(existing);
     }
 
+    // If no record exists → create a new one
     const newAuthor = new AboutAuthor({
       name,
       about,
       headline,
       role,
+      linkedin,
+      github,
+      gmail,
+      instagram,
       image: req.file ? req.file.path : "",
     });
 
@@ -111,6 +125,7 @@ export const createOrUpdateAuthor = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // GET (always returns the single author)
 export const getAuthor = async (req, res) => {
