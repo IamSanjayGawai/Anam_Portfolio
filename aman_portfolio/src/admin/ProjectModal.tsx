@@ -137,7 +137,7 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
     setEditingProject(null);
     setShowForm(false);
   };
-
+  const backendUrl = import.meta.env.VITE_MONGODB_URI;
   
   const handleSubmit = async () => {
     const form = new FormData();
@@ -158,14 +158,14 @@ const ProjectModal: React.FC<ProjectModalProps> = ({
         // ⚠️ You can't use PUT with FormData by default — better use POST for updates too,
         // or use POST with a `_method=PUT` convention if your backend handles it.
         await axios.put(
-          `http://localhost:4000/api/explore/update/${editingProject._id}`,
+          `${backendUrl}/api/explore/update/${editingProject._id}`,
           form,
           {
             headers: { "Content-Type": "multipart/form-data" },
           }
         );
       } else {
-        await axios.post("http://localhost:4000/api/explore/create", form, {
+        await axios.post(`${backendUrl}/api/explore/create`, form, {
           headers: { "Content-Type": "multipart/form-data" },
         });
       }

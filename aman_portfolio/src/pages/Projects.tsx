@@ -28,10 +28,10 @@ export default function PortfolioShowcase() {
   const [activeTab, setActiveTab] = useState<ExploreTab>('recent');
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const [projects, setProjects] = useState<Project[]>([]);
-
+  const backendUrl = import.meta.env.VITE_MONGODB_URI;
     const handleGetProject = async() =>{
 
-       let response = await axios.get('http://localhost:4000/api/explore/get')
+       let response = await axios.get(`${backendUrl}/api/explore/get`)
        console.log(response.data, "reposne data")
            setProjects(response.data);
 

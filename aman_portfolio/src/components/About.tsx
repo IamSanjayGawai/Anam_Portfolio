@@ -14,12 +14,12 @@ type AboutDetailsProps = {
   image: string,
   mission: string
 }
-
+const backendUrl = import.meta.env.VITE_MONGODB_URI;
 const About: React.FC<AboutProps> = ({ sectionRefs }) => {
   const [aboutDetail, setAboutDetail] = useState<AboutDetailsProps | null>(null);
 
   const handleGetAbout = async () => {
-    const response = await axios.get('http://localhost:4000/api/authors');
+    const response = await axios.get(`${backendUrl}/api/authors`);
     setAboutDetail(response.data);
   };
 
@@ -32,8 +32,8 @@ const About: React.FC<AboutProps> = ({ sectionRefs }) => {
   const imageUrl = normalizedImagePath?.startsWith("http")
     ? normalizedImagePath
     : normalizedImagePath?.startsWith("uploads/")
-      ? `http://localhost:4000/${normalizedImagePath}`
-      : `http://localhost:4000/uploads/${normalizedImagePath}`;
+      ? `${backendUrl}/${normalizedImagePath}`
+      : `${backendUrl}/uploads/${normalizedImagePath}`;
 
   return (
     <>

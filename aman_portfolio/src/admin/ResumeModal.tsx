@@ -6,7 +6,7 @@ type ResumeModalProps = {
   showResume: Boolean;
   setShowResume: (show: boolean) => void;
 };
-
+const backendUrl = import.meta.env.VITE_MONGODB_URI;
 const ResumeModal = ({ showResume, setShowResume }: ResumeModalProps) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
@@ -30,7 +30,7 @@ const ResumeModal = ({ showResume, setShowResume }: ResumeModalProps) => {
 formData.append("resume", resumeFile); 
 
 await axios.post(
-  "http://localhost:4000/api/files/upload-resume",
+  `${backendUrl}/api/files/upload-resume`,
   formData
  
 );

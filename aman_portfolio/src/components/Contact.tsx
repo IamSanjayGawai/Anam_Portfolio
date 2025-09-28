@@ -24,13 +24,14 @@ const Contact: React.FC<ContactProps> = ({ sectionRefs }) => {
     }));
   };
 
+  const backendUrl = import.meta.env.VITE_MONGODB_URI;
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus('Sending...');
 
     try {
-      const response = await axios.post('http://localhost:4000/api/contact', formData);
+      const response = await axios.post(`${backendUrl}/api/contact`, formData);
       if (response.data.success) {
         setStatus('✅ Thank you for reaching out!');
         setFormData({ name: '', email: '', message: '' });

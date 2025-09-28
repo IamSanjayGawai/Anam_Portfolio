@@ -59,9 +59,10 @@ const AddProject = () => {
   });
 
   console.log(projects, "projects");
+  const backendUrl = import.meta.env.VITE_MONGODB_URI;
 
   const handleGetProject = async () => {
-    let response = await axios.get("http://localhost:4000/api/explore/get");
+    let response = await axios.get(`${backendUrl}/api/explore/get`);
     console.log(response.data, "reposne data");
     setProjects(response.data);
   };
@@ -79,7 +80,7 @@ const AddProject = () => {
       image: null,
       // imagePreview: project?.imageUrl || null,                       //  when  mongo image url uses
       imagePreview: project?.imageUrl
-        ? `http://localhost:4000/${project.imageUrl}`
+        ? `${backendUrl}/${project.imageUrl}`
         : null,
       desc: project.desc,
       tech: project.tech.join(", "),
@@ -100,7 +101,7 @@ const AddProject = () => {
 
     try {
       // Simulated delete - replace with actual axios call
-      await axios.delete(`http://localhost:4000/api/explore/delete/${id}`);
+      await axios.delete(`${backendUrl}/api/explore/delete/${id}`);
       setProjects((prev) => prev.filter((p) => p._id !== id));
       alert("Project deleted successfully!");
     } catch (error) {
@@ -242,7 +243,7 @@ const AddProject = () => {
                                     ? project.imagePreview
                                     : project.imageUrl?.startsWith("http")
                                     ? project.imageUrl
-                                    : `http://localhost:4000/${project.imageUrl?.replace(
+                                    : `${backendUrl}/${project.imageUrl?.replace(
                                         /\\/g,
                                         "/"
                                       )}`

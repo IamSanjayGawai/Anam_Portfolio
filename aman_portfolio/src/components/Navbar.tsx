@@ -2,7 +2,7 @@ import { useState } from 'react';
 // import { Link } from 'react-router-dom';
 
 
-
+const backendUrl = import.meta.env.VITE_MONGODB_URI;
 const navbar = () => {
         const [isOpen, setIsOpen] = useState(false);
   return (
@@ -17,7 +17,7 @@ const navbar = () => {
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-4">
         <a
-          href="http://localhost:4000/api/files/download-resume" target="_blank"
+          href={`${backendUrl}/api/files/download-resume`} target="_blank"
           download
           className="glass-btn px-5 py-2 rounded-full text-base font-semibold hover:bg-orange-500/80 hover:text-white transition focus:ring-2 focus:ring-orange-400 shadow-lg flex items-center gap-2"
         >

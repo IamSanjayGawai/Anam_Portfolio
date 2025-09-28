@@ -47,11 +47,11 @@ const Portfolio = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
     const [projects, setProjects] = useState<Project[]>([]);
 
-
+    const backendUrl = import.meta.env.VITE_MONGODB_URI;
 
   const handleGetProject = async() =>{
 
-       let response = await axios.get('http://localhost:4000/api/explore/get')
+       let response = await axios.get(`${backendUrl}/api/explore/get`)
 
            setProjects(response.data);
 
@@ -86,7 +86,7 @@ const Portfolio = () => {
             ? project.imagePreview
             : project.imageUrl?.startsWith("http")
             ? project.imageUrl
-            : `http://localhost:4000/${project.imageUrl?.replace(/\\/g, "/")}`
+            : `${backendUrl}/${project.imageUrl?.replace(/\\/g, "/")}`
         }
           alt={project.title} 
           className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -222,7 +222,7 @@ const Portfolio = () => {
                 : modalProject.imageUrl?.startsWith("http")
                 ? modalProject.imageUrl
                 : modalProject.imageUrl
-                ? `http://localhost:4000/${modalProject.imageUrl.replace(/\\/g, "/")}`
+                ? `${backendUrl}/${modalProject.imageUrl.replace(/\\/g, "/")}`
                 : ""
             }
             alt={modalProject.title}
@@ -347,7 +347,7 @@ return (
                   : project.imageUrl?.startsWith("http")
                   ? project.imageUrl
                   : project.imageUrl
-                  ? `http://localhost:4000/${project.imageUrl.replace(/\\/g, "/")}`
+                  ? `${backendUrl}/${project.imageUrl.replace(/\\/g, "/")}`
                   : "";
               const exploreProject: ExploreProject = {
                 title: project.title,

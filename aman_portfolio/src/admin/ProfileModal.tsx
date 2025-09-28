@@ -28,10 +28,12 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  const backendUrl = import.meta.env.VITE_MONGODB_URI;
+
   useEffect(() => {
     // Load existing author details if any
     const fetchAuthor = async () => {
-      const res = await axios.get("http://localhost:4000/api/authors");
+      const res = await axios.get(`${backendUrl}/api/authors`);
       const data = res.data;
       if (data) {
         setAuthorData((prev) => ({
@@ -40,7 +42,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
           about: data.about,
           headline: data.headline,
           role: data.role,
-          imagePreview: data.image ? `http://localhost:4000/${data.image}` : null,
+          imagePreview: data.image ? `${backendUrl}/${data.image}` : null,
         }));
       }
     };
@@ -102,7 +104,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ showProfile, setShowProfile
       form.append("image", authorData.image);
     }
 
-    await axios.post("http://localhost:4000/api/authors", form, {
+    await axios.post(`${backendUrl}/api/authors`, form, {
       headers: { "Content-Type": "multipart/form-data" },
     });
 
