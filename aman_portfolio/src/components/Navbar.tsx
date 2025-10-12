@@ -1,7 +1,6 @@
 // import { useState } from 'react';
 // // import { Link } from 'react-router-dom';
 
-
 // const backendUrl = import.meta.env.VITE_MONGODB_URI;
 // const navbar = () => {
 //         const [isOpen, setIsOpen] = useState(false);
@@ -71,7 +70,7 @@
 //         >
 //           Resume / CV
 //         </a>
-        
+
 //         <a
 //           href="mailto:aman@email.com"
 //           className="bg-gradient-to-r from-orange-500 via-pink-500 to-orange-400 px-4 py-2 rounded-full text-base font-semibold text-white shadow-lg"
@@ -87,10 +86,8 @@
 
 // export default navbar
 
-
-
-
-import { useState } from 'react';
+import { useState } from "react";
+import StarBorder from "../components/StarBorder";
 
 const backendUrl = import.meta.env.VITE_MONGODB_URI;
 
@@ -109,14 +106,19 @@ const Navbar = () => {
       {/* Desktop Nav */}
       <div className="hidden md:flex items-center gap-4">
         {/* Resume/CV Button */}
-        <a
-          href={`${backendUrl}/api/files/download-resume`}
-          target="_blank"
-          download
-          className="relative px-6 py-2 rounded-full text-white font-semibold overflow-hidden group shadow-lg cursor-pointer"
+
+        <StarBorder
+          as="button"
+          className="custom-class"
+          color="cyan"
+          speed="5s"
         >
-          <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-400 opacity-80 blur-sm group-hover:opacity-100 transition duration-500 animate-gradient-x"></span>
-          <span className="relative flex items-center gap-2 z-10">
+          <a
+            href={`${backendUrl}/api/files/download-resume`}
+            target="_blank"
+            download
+            className="relative px-4 py-0 rounded-full text-white font-semibold overflow-hidden group shadow-lg cursor-pointer flex justify-center items-center"
+          >
             <svg
               className="w-5 h-5 animate-bounce"
               fill="none"
@@ -127,17 +129,25 @@ const Navbar = () => {
               <path d="M12 4v12m0 0l-3-3m3 3l3-3" />
               <path d="M6 20h12" />
             </svg>
-            Resume / CV
-          </span>
-        </a>
+            <span>Resume / CV</span>
+          </a>
+        </StarBorder>
 
         {/* Say Hi Button */}
+
+        <StarBorder
+          as="button"
+          className="custom-class"
+          color="cyan"
+          speed="5s"
+        >
         <a
           href="mailto:aman@email.com"
-          className="px-6 py-2 rounded-full text-white font-bold bg-gradient-to-r from-pink-500 via-orange-400 to-yellow-300 shadow-xl animate-pulse hover:scale-110 transition-transform duration-300 hover:shadow-[0_0_20px_rgba(255,165,0,0.6)]"
+          className="px-6 py-2 rounded-full text-white font-bold  shadow-xl animate-pulse hover:scale-110 transition-transform duration-300 hover:shadow-[0_0_20px_rgba(255,165,0,0.6)]"
         >
           Say Hi!
         </a>
+        </StarBorder>
       </div>
 
       {/* Hamburger Button */}
@@ -153,7 +163,7 @@ const Navbar = () => {
       {/* Mobile Menu */}
       <div
         className={`fixed top-0 right-0 h-full w-64 bg-[#10111A] shadow-xl transform ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          isOpen ? "translate-x-0" : "translate-x-full"
         } transition-transform duration-300 md:hidden flex flex-col p-6 gap-6`}
       >
         <button
@@ -162,7 +172,12 @@ const Navbar = () => {
         >
           &times;
         </button>
-
+        <StarBorder
+          as="button"
+          className="custom-class"
+          color="cyan"
+          speed="5s"
+        >
         <a
           href={`${backendUrl}/api/files/download-resume`}
           download
@@ -171,7 +186,7 @@ const Navbar = () => {
         >
           Resume / CV
         </a>
-
+    </StarBorder>
         <a
           href="mailto:aman@email.com"
           className="text-white text-lg font-bold px-6 py-2 rounded-full bg-gradient-to-r from-pink-500 via-orange-400 to-yellow-300 shadow-xl hover:scale-110 transition-transform duration-300 animate-pulse hover:shadow-[0_0_20px_rgba(255,165,0,0.6)] text-center"

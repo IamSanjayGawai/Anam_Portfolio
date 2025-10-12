@@ -47,10 +47,14 @@ import NotFound from "./pages/NotFound";
 import AddProject from './admin/Dashboard';
 import { AuthProvider } from './contexts/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import SplashCursor from './components/SplashCursor';
 
 const queryClient = new QueryClient();
 
 const App = () => (
+  <>
+  <SplashCursor />
+  
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <AuthProvider>
@@ -74,6 +78,7 @@ const App = () => (
       </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
+  </>
 );
 
 export default App;

@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import './HeroPage.css'; // Move the styles to this file
 import { Link } from 'react-router-dom';
+import StarBorder from '../components/StarBorder'
 
 interface HeroPageProps {
   onProceed: () => void;
@@ -117,7 +118,7 @@ for (let i = 0; i < particleCount; i++) {
   return (
     <div>
       <div id="loader" ref={loaderRef}>
-        <div className="loader-label">Loading Experience</div>
+        <div className="loader-label">Loading</div>
         <div className="loader-bar">
           <div className="loader-progress" ref={loaderProgressRef}></div>
         </div>
@@ -128,13 +129,24 @@ for (let i = 0; i < particleCount; i++) {
       <section className="hero">
         <div className="hero-content">
           <h1 className="hero-title">Pandit Aman</h1>
-          <p className="hero-subtitle">From Pixels to Protocol — I build it all</p>
+          {/* <p className="hero-subtitle">From Pixels to Protocol — I build it all</p>
           <p className="hero-description">
             A space where creativity and code breathe together.<br />
             Building more than just solutions — creating purposeful experiences.
-          </p>
+          </p> */}
           <div className="cta-buttons">
-            <Link to="/home"><button className="cta-btn"  onClick={onProceed}>ENTER THE EXPERIENCE</button></Link>
+       
+  
+  <StarBorder
+    as="button"
+    className="custom-class"
+    color="cyan"
+    speed="5s"
+  >
+ 
+            <Link to="/home"><button className=""  onClick={onProceed}>ENTER THE EXPERIENCE</button></Link>
+            
+            </StarBorder>
           </div>
         </div>
       </section>

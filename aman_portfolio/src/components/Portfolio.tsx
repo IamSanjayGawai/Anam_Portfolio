@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Globe, Github, ArrowLeft, X } from 'lucide-react';
 import axios from 'axios';
+import StarBorder from "../components/StarBorder";
 
 // interface Project {
 //   title: string;
@@ -290,12 +291,20 @@ return (
 
 
       <div className="flex justify-center mt-10">
+        
+      <StarBorder
+          as="button"
+          className="custom-class"
+          color="cyan"
+          speed="5s"
+        >
         <button
           onClick={() => setShowExploreMore(true)}
-          className="bg-orange-400 text-white px-6 py-3 rounded-full font-bold text-base md:text-lg shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className=" text-white rounded-full font-bold text-base md:text-lg shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300 focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           Explore More
         </button>
+        </StarBorder>
       </div>
     </section>
 
